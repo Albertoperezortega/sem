@@ -5,6 +5,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
+//For now this app connects to the mongo DB and prints 'myDoc' as seen below. This is a placeholder before we implement our actual program
 public class App
 {
     public static void main(String[] args)
