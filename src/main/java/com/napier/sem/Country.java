@@ -74,7 +74,7 @@ package com.napier.sem;
         /**
          * Capital of the country
          */
-        public int capital;
+        public String capital;
 
         /**
          * Code2 of the country
