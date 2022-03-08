@@ -13,7 +13,29 @@ public class App
         // Connect to database
         a.connect();
 
-        ArrayList<Country> countries = a.getAllCountries();
+        // This String is used to return all rows of the query
+        String returnAll = "";
+        // This String is used to return N number of rows of the query
+        String numberOfRows = "LIMIT 3";
+        // This String is used for the 1st and 4th query - it chooses all countries in the world
+        String countriesWorld = "WHERE country.capital = city.id ";
+        // This String is used for the 2nd and 5th query - it chooses all countries in a continent
+        String countriesContinent = "WHERE country.capital = city.id AND country.continent = 'Europe' ";
+        // This String is used for the 3rd and 6th query - it chooses all countries in a region
+        String countriesRegion = "WHERE country.capital = city.id AND country.region = 'Eastern Europe' ";
+
+        /**
+         * We use the method getAllCountries to generate a country report, so basically run the first 6 queries from the assessment description
+         * This method has two inputs:
+         * - the first one is queryPart, which is the WHERE clause that chooses all the countries in the world/continent/region
+         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
+         * So the first variable in the brackets will be countriesWorld, countriesContinent or countries Region
+         * The second variable in the brackets will be either numberOfRows or returnAll
+         */
+        // We create an ArrayList that consists of classes Country and we call the method getAllCountries to fill this ArrayList
+        ArrayList<Country> countries = a.getAllCountries(countriesRegion, returnAll);
+
+        // We call the method printCountries which creates and prints the output for the Arraylist countries
         a.printCountries(countries);
 
         // Disconnect from database
@@ -113,10 +135,11 @@ public class App
     }
 
     /**
+     * Method for getting the country report
      * Gets all the countries and their population.
      * @return A list of all countries and their population, or null if there is an error.
      */
-    public ArrayList<Country> getAllCountries()
+    public ArrayList<Country> getAllCountries(String queryPart, String queryPart2)
     {
         try
         {
@@ -126,14 +149,16 @@ public class App
             String strSelect =
                     "SELECT country.code, country.name, country.continent, country.region, country.population, city.name "
                             + "FROM country, city "
-                            + "WHERE country.capital = city.id "
-                            + "ORDER BY country.population DESC ";
+                            + queryPart
+                            + "ORDER BY country.population DESC "
+                            + queryPart2;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
             ArrayList<Country> countries = new ArrayList<Country>();
             while (rset.next())
             {
+                // We create a new instance of class Country each time this while loop runs, and we fill it with the output from the query
                 Country ctr = new Country();
                 ctr.code = rset.getString("country.code");
                 ctr.name = rset.getString("country.name");
