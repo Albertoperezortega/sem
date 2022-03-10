@@ -7,7 +7,7 @@
     <groupId>com.napier.sem</groupId>
     <artifactId>seMethods</artifactId>
     <!--Stating the version number-->
-    <version>0.1.0.2</version>
+    <version>0.1.0.3</version>
 
     <properties>
     <!--Choosing the Maven compiler version-->
