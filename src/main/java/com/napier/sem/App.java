@@ -41,9 +41,10 @@ public class App
         String citiesWorld = "WHERE country.code = city.countrycode ";
         String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
         String citiesRegion = "WHERE country.code = city.countrycode AND country.region = 'Eastern Europe' ";
-        String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland'  ";
+        String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland' ";
+        String citiesDistrict = "WHERE country.code = city.countrycode AND city.district = 'Mazowieckie' ";
 
-        ArrayList<City> cities = a.getAllCities(citiesCountry);
+        ArrayList<City> cities = a.getAllCities(citiesDistrict);
 
         a.printCities(cities);
 
