@@ -36,9 +36,12 @@ public class App
         ArrayList<Country> countries = a.getAllCountries(countriesRegion, returnAll);
 
         // We call the method printCountries which creates and prints the output for the Arraylist countries
-        //  a.printCountries(countries);
+        // a.printCountries(countries);
 
-        ArrayList<City> cities = a.getAllCities();
+        String citiesWorld = "WHERE country.code = city.countrycode ";
+        String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
+
+        ArrayList<City> cities = a.getAllCities(citiesContinent);
 
         a.printCities(cities);
 
@@ -200,7 +203,7 @@ public class App
         }
     }
 
-    public ArrayList<City> getAllCities()
+    public ArrayList<City> getAllCities(String queryPart)
     {
         try
         {
@@ -210,7 +213,7 @@ public class App
             String strSelect =
                     "SELECT city.name, country.name, city.district, city.population "
                             + "FROM country, city "
-                            + "WHERE country.code = city.countrycode "
+                            + queryPart
                             + "ORDER BY city.population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -239,12 +242,12 @@ public class App
     public void printCities(ArrayList<City> cities)
     {
         // Print header
-        System.out.println(String.format("%-20s %-20s %-15s %-10s", "Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-30s %-20s %-15s %-10s", "Name", "Country", "District", "Population"));
         // Loop over all employees in the list
         for (City cty : cities)
         {
             String ctr_string =
-                    String.format("%-20s %-35s %-15s %-10s",
+                    String.format("%-30s %-35s %-15s %-10s",
                             cty.name, cty.country_name, cty.district, cty.population);
             System.out.println(ctr_string);
         }
