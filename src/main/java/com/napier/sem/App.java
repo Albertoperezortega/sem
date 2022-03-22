@@ -41,8 +41,9 @@ public class App
         String citiesWorld = "WHERE country.code = city.countrycode ";
         String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
         String citiesRegion = "WHERE country.code = city.countrycode AND country.region = 'Eastern Europe' ";
+        String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland'  ";
 
-        ArrayList<City> cities = a.getAllCities(citiesRegion);
+        ArrayList<City> cities = a.getAllCities(citiesCountry);
 
         a.printCities(cities);
 
@@ -243,7 +244,7 @@ public class App
     public void printCities(ArrayList<City> cities)
     {
         // Print header
-        System.out.println(String.format("%-30s %-20s %-20s %-10s", "Name", "Country", "District", "Population"));
+        System.out.println(String.format("%-30s %-35s %-20s %-10s", "Name", "Country", "District", "Population"));
         // Loop over all employees in the list
         for (City cty : cities)
         {
