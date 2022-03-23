@@ -194,6 +194,12 @@ public class App
      */
     public void printCountries(ArrayList<Country> countries)
     {
+        // Check countries is not null
+        if (countries == null)
+        {
+            System.out.println("No employees");
+            return;
+        }
         // Print header
         System.out.println(String.format("%-5s %-45s %-15s %-30s %-10s %-5s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
         // Loop over all employees in the list
