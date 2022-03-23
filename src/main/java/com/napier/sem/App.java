@@ -36,7 +36,17 @@ public class App
         ArrayList<Country> countries = a.getAllCountries(countriesRegion, returnAll);
 
         // We call the method printCountries which creates and prints the output for the Arraylist countries
-        a.printCountries(countries);
+        // a.printCountries(countries);
+
+        String citiesWorld = "WHERE country.code = city.countrycode ";
+        String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
+        String citiesRegion = "WHERE country.code = city.countrycode AND country.region = 'Eastern Europe' ";
+        String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland' ";
+        String citiesDistrict = "WHERE country.code = city.countrycode AND city.district = 'Mazowieckie' ";
+
+        ArrayList<City> cities = a.getAllCities(citiesDistrict);
+
+        a.printCities(cities);
 
         // Disconnect from database
         a.disconnect();
@@ -89,7 +99,7 @@ public class App
     }
 
 
-    public Country getCountry()
+    public Country getCountry(String code)
     {
         try
         {
@@ -99,7 +109,7 @@ public class App
             String strSelect =
                     "SELECT code, name, continent "
                             + "FROM country "
-                            + "WHERE code = 'AGO'";
+                            + "WHERE code = '" + code +"'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country if valid.
@@ -196,6 +206,55 @@ public class App
         }
     }
 
+    public ArrayList<City> getAllCities(String queryPart)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.name, country.name, city.district, city.population "
+                            + "FROM country, city "
+                            + queryPart
+                            + "ORDER BY city.population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<City> cities = new ArrayList<City>();
+            while (rset.next())
+            {
+                // We create a new instance of class Country each time this while loop runs, and we fill it with the output from the query
+                City cty = new City();
+                cty.name = rset.getString("city.name");
+                cty.country_name = rset.getString("country.name");
+                cty.district = rset.getString("city.district");
+                cty.population = rset.getInt("city.population");
+                cities.add(cty);
+            }
+            return cities;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    public void printCities(ArrayList<City> cities)
+    {
+        // Print header
+        System.out.println(String.format("%-30s %-35s %-20s %-10s", "Name", "Country", "District", "Population"));
+        // Loop over all employees in the list
+        for (City cty : cities)
+        {
+            String ctr_string =
+                    String.format("%-30s %-35s %-20s %-10s",
+                            cty.name, cty.country_name, cty.district, cty.population);
+            System.out.println(ctr_string);
+        }
+    }
 
     /**
      * Disconnect from the MySQL database.
