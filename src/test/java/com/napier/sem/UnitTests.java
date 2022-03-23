@@ -8,18 +8,21 @@ public class UnitTests
 {
     static App app;
 
+    //Initializes a new app instance
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
+    //Tests if printCountries method handles a null value of countries array
     @Test
     void printCountriesTestNull()
     {
         app.printCountries(null);
     }
 
+    //Tests if printCountries handles an empty countries array
     @Test
     void printCountriesTestEmpty()
     {
@@ -27,6 +30,7 @@ public class UnitTests
         app.printCountries(countries);
     }
 
+    //Tests if printCountries can handle printing a list that contains null values
     @Test
     void printCountriesTestContainsNull()
     {
@@ -35,6 +39,7 @@ public class UnitTests
         app.printCountries(countries);
     }
 
+    //This final test is for normal conditions in method printCountries.
     @Test
     void printCountries()
     {
@@ -50,12 +55,14 @@ public class UnitTests
         app.printCountries(countries);
     }
 
+    //Tests if printCities method handles a null value of cities array
     @Test
     void printCitiesTestNull()
     {
         app.printCities(null);
     }
 
+    //Tests if printCities handles an empty cities array
     @Test
     void printCitiesTestEmpty()
     {
@@ -63,6 +70,7 @@ public class UnitTests
         app.printCities(cities);
     }
 
+    //Tests if printCities can handle printing a list that contains null values
     @Test
     void printCitiesTestContainsNull()
     {
@@ -71,6 +79,7 @@ public class UnitTests
         app.printCities(cities);
     }
 
+    //This final test is for normal conditions for method printCities.
     @Test
     void printCities()
     {

@@ -29,8 +29,8 @@ public class App
          * This method has two inputs:
          * - the first one is queryPart, which is the WHERE clause that chooses all the countries in the world/continent/region
          * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
-         * So the first variable in the brackets will be countriesWorld, countriesContinent or countries Region
-         * The second variable in the brackets will be either numberOfRows or returnAll
+         * So the first variable in the brackets will be countriesWorld, countriesContinent or countriesRegion
+         * The second variable in the brackets will be either numberOfCountries or returnAll
          */
         // We create an ArrayList that consists of classes Country and we call the method getAllCountries to fill this ArrayList
         ArrayList<Country> countries = a.getAllCountries(countriesRegion, returnAll);
@@ -38,15 +38,32 @@ public class App
         // We call the method printCountries which creates and prints the output for the Arraylist countries
         // a.printCountries(countries);
 
+        // This String is used to return N number of rows of the query
         String numberOfCities = "LIMIT 3";
+        // This String is used for the 7th and 12th query - it chooses all cities in the world
         String citiesWorld = "WHERE country.code = city.countrycode ";
+        // This String is used for the 8th and 13th query - it chooses all cities in a continent
         String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
+        // This String is used for the 9th and 14th query - it chooses all cities in a region
         String citiesRegion = "WHERE country.code = city.countrycode AND country.region = 'Eastern Europe' ";
+        // This String is used for the 10th and 15th query - it chooses all cities in a country
         String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland' ";
+        // This String is used for the 11th and 16th query - it chooses all cities in a district
         String citiesDistrict = "WHERE country.code = city.countrycode AND city.district = 'Mazowieckie' ";
 
+        /**
+         * We use the method getAllCities to generate a city report, so basically run the queries from 7 to 16 in the assessment description
+         * This method has two inputs:
+         * - the first one is queryPart, which is the WHERE clause that chooses all the cities in the world/continent/region/country/district
+         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
+         * So the first variable in the brackets will be citiesWorld, citiesContinent, citiesRegion, citiesCountries and citiesDistrict
+         * The second variable in the brackets will be either numberOfCities or returnAll
+         */
+
+        // We create an ArrayList that consists of classes City and we call the method getAllCities to fill this ArrayList
         ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
 
+        //We call the method printCountries which creates and prints the output for the Arraylist countries
         a.printCities(cities);
 
         // Disconnect from database
@@ -134,6 +151,7 @@ public class App
         }
     }
 
+
     public void displayCountry(Country ctr)
     {
         if (ctr != null)
@@ -190,7 +208,7 @@ public class App
     }
 
     /**
-     * Prints a list of employees.
+     * Prints a list of countries.
      * @param countries The list of countries to print.
      */
     public void printCountries(ArrayList<Country> countries)
@@ -203,7 +221,7 @@ public class App
         }
         // Print header
         System.out.println(String.format("%-5s %-45s %-15s %-30s %-10s %-5s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
-        // Loop over all employees in the list
+        // Loop over all countries in the list
         for (Country ctr : countries)
         {
             if (ctr == null)
@@ -230,11 +248,11 @@ public class App
                             + queryPart2;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract country information
+            // Extract city information
             ArrayList<City> cities = new ArrayList<City>();
             while (rset.next())
             {
-                // We create a new instance of class Country each time this while loop runs, and we fill it with the output from the query
+                // We create a new instance of class City each time this while loop runs, and we fill it with the output from the query
                 City cty = new City();
                 cty.name = rset.getString("city.name");
                 cty.country_name = rset.getString("country.name");
@@ -252,6 +270,7 @@ public class App
         }
     }
 
+
     public void printCities(ArrayList<City> cities)
     {
         // Check cities is not null
@@ -262,7 +281,7 @@ public class App
         }
         // Print header
         System.out.println(String.format("%-30s %-35s %-20s %-10s", "Name", "Country", "District", "Population"));
-        // Loop over all employees in the list
+        // Loop over all cities in the list
         for (City cty : cities)
         {
             if (cty == null)
