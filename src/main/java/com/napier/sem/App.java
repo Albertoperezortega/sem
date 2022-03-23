@@ -16,7 +16,7 @@ public class App
         // This String is used to return all rows of the query
         String returnAll = "";
         // This String is used to return N number of rows of the query
-        String numberOfRows = "LIMIT 3";
+        String numberOfCountries = "LIMIT 3";
         // This String is used for the 1st and 4th query - it chooses all countries in the world
         String countriesWorld = "WHERE country.capital = city.id ";
         // This String is used for the 2nd and 5th query - it chooses all countries in a continent
@@ -38,13 +38,14 @@ public class App
         // We call the method printCountries which creates and prints the output for the Arraylist countries
         // a.printCountries(countries);
 
+        String numberOfCities = "LIMIT 3";
         String citiesWorld = "WHERE country.code = city.countrycode ";
         String citiesContinent = "WHERE country.code = city.countrycode AND country.continent = 'Europe' ";
         String citiesRegion = "WHERE country.code = city.countrycode AND country.region = 'Eastern Europe' ";
         String citiesCountry = "WHERE country.code = city.countrycode AND country.name = 'Poland' ";
         String citiesDistrict = "WHERE country.code = city.countrycode AND city.district = 'Mazowieckie' ";
 
-        ArrayList<City> cities = a.getAllCities(citiesDistrict);
+        ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
 
         a.printCities(cities);
 
@@ -206,7 +207,7 @@ public class App
         }
     }
 
-    public ArrayList<City> getAllCities(String queryPart)
+    public ArrayList<City> getAllCities(String queryPart, String queryPart2)
     {
         try
         {
@@ -217,7 +218,8 @@ public class App
                     "SELECT city.name, country.name, city.district, city.population "
                             + "FROM country, city "
                             + queryPart
-                            + "ORDER BY city.population DESC";
+                            + "ORDER BY city.population DESC "
+                            + queryPart2;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
