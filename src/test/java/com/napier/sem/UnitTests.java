@@ -19,4 +19,11 @@ public class UnitTests
     {
         app.printCountries(null);
     }
+
+    @Test
+    void printCountriesTestEmpty()
+    {
+        ArrayList<Country> countries = new ArrayList<Country>();
+        app.printCountries(countries);
+    }
 }
