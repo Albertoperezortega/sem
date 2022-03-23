@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.napier.sem</groupId>
-    <artifactId>seMethods</artifactId>
-    <version>0.1.0.4</version>
+    <artifactId>semGroup12</artifactId>
+    <version>0.1.0.2</version>
 
     <dependencies>
         <dependency>
@@ -34,7 +34,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <finalName>seMethods</finalName>
+                    <finalName>semGroup12</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.napier.sem.App</mainClass>
