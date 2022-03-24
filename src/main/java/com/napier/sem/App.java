@@ -3,6 +3,14 @@ package com.napier.sem;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * In this App, we run through a database to access and compare different values
+ * It is made to access with ease information about population
+ * In addition to this, it provides information about languages that people speak
+ * Finally it produces several reports containing this information.
+ * @authors: Milan Mucha, Ariel Girs, Noah Saleh, Alberto Perez
+ * @since: 02/02/2022
+ */
 public class App
 {
     public static void main(String[] args)
@@ -112,7 +120,11 @@ public class App
         }
     }
 
-
+    /**
+     * Contructs the SQL statements
+     * @param code
+     * @return if SQL statement valid, and null if invalid or error
+     */
     public Country getCountry(String code)
     {
         try
@@ -228,7 +240,11 @@ public class App
             System.out.println(ctr_string);
         }
     }
-
+    /**
+     * Method for getting the city report
+     * Gets all cities with their population.
+     * @return List of cities with their populations, or null if there is an error.
+     */
     public ArrayList<City> getAllCities(String queryPart, String queryPart2)
     {
         try
@@ -266,6 +282,10 @@ public class App
         }
     }
 
+    /**
+     * Prints list of cities
+     * @param cities List of cities to print
+     */
 
     public void printCities(ArrayList<City> cities)
     {
