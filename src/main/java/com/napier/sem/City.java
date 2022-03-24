@@ -2,11 +2,11 @@ package com.napier.sem;
 
 /**
  *
- * Represents a country
+ * Represents a city
  */
 public class City {
     /**
-     * Country 3 letter code
+     * City name
      */
     public String name;
 
@@ -16,12 +16,12 @@ public class City {
     public String country_name;
 
     /**
-     * Name of continent
+     * Name of district
      */
     public String district;
 
     /**
-     * Population of the country
+     * Population of the city
      */
     public int population;
 }
