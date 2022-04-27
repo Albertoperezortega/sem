@@ -100,6 +100,10 @@ public class App
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist countries
         a.printCapitalCities(capitalCities);
 
+        ArrayList<Population> thePopulation = a.getPopulation();
+
+        a.printPopulation(thePopulation);
+
         // Disconnect from database
         a.disconnect();
     }
@@ -395,6 +399,68 @@ public class App
                     String.format("%-35s %-35s %-20s",
                             cpt.name, cpt.country_name, cpt.population);
             System.out.println(cpt_string);
+        }
+    }
+
+    public ArrayList<Population> getPopulation()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.continent, SUM(country.population) AS population, CONCAT(joined.ctypop, ' ', FORMAT(joined.ctypop/SUM(country.population)*100, 1), '%') AS cities_population, CONCAT(SUM(country.population)-joined.ctypop, ' ', FORMAT((SUM(country.population)-joined.ctypop)/SUM(country.population)*100, 1), '%') AS not_cities_population "
+                        + "FROM country "
+                        + "JOIN (SELECT country.continent AS continent, SUM(city.population) AS ctypop FROM country, city WHERE country.code = city.countrycode GROUP BY country.continent) joined ON joined.continent  = country.continent "
+                        + "GROUP BY country.continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract capital city information
+            ArrayList<Population> thePopulation = new ArrayList<Population>();
+            while (rset.next())
+            {
+                // We create a new instance of class City each time this while loop runs, and we fill it with the output from the query
+                Population pop = new Population();
+                pop.selection = rset.getString("country.continent");
+                pop.population = rset.getString("population");
+                pop.cities_population = rset.getString("cities_population");
+                pop.not_cities_population = rset.getString("not_cities_population");
+                thePopulation.add(pop);
+            }
+            return thePopulation;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital city details");
+            return null;
+        }
+    }
+
+    /**
+     * Prints list of capital cities
+     * @param thePopulation List of capital cities to print
+     */
+    public void printPopulation(ArrayList<Population> thePopulation)
+    {
+        // Check capitalCities is not null
+        if (thePopulation == null)
+        {
+            System.out.println("No capital cities");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-35s %-35s %-20s %20s", "Selection", "Population", "In the cities", "Not in the cities"));
+        // Loop over all capital cities in the list
+        for (Population pop : thePopulation)
+        {
+            if (pop == null)
+                continue;
+            String pop_string =
+                    String.format("%-35s %-35s %-20s %20s",
+                            pop.selection, pop.population, pop.cities_population, pop.not_cities_population);
+            System.out.println(pop_string);
         }
     }
 
