@@ -68,25 +68,34 @@ public class App
          * This method has two inputs:
          * - the first one is queryPart, which is the WHERE clause that chooses all the cities in the world/continent/region/country/district
          * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
-         * So the first variable in the brackets will be citiesWorld, citiesContinent, citiesRegion, citiesCountries and citiesDistrict
+         * So the first variable in the brackets will be citiesWorld, citiesContinent, citiesRegion, citiesCountries or citiesDistrict
          * The second variable in the brackets will be either numberOfCities or returnAll
          */
-
         // We create an ArrayList that consists of classes City and we call the method getAllCities to fill this ArrayList
         ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
 
         // We call the method printCities which creates and prints the output for the Arraylist countries
         // a.printCities(cities);
 
-        // This String is used for the 17th query - it chooses all capital cities in the world
+        // This String is used to return N number of rows of the query
+        String numberOfCapitalCities = "LIMIT 3";
+        // This String is used for the 17th and 20th query - it chooses all capital cities in the world
         String capitalCitiesWorld = "WHERE city.id = country.capital ";
-        // This String is used for the 18th query - it chooses all capital cities in a continent
+        // This String is used for the 18th and 21st query - it chooses all capital cities in a continent
         String capitalCitiesContinent = "WHERE city.id = country.capital AND country.continent = 'Europe' ";
-        // This String is used for the 19th query - it chooses all capital cities in a region
+        // This String is used for the 19th and 22nd query - it chooses all capital cities in a region
         String capitalCitiesRegion = "WHERE city.id = country.capital AND country.region = 'Eastern Europe' ";
 
+        /**
+         * We use the method getAllCapitalCities to generate a capital city report, so basically run the queries from 17 to 22 in the assessment description
+         * This method has two inputs:
+         * - the first one is queryPart, which is the WHERE clause that chooses all the capital cities in the world/continent/region
+         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
+         * So the first variable in the brackets will be capitalCitiesWorld, capitalCitiesContinent or capitalCitiesRegion
+         * The second variable in the brackets will be either numberOfCapitalCities or returnAll
+         */
         // We create an ArrayList that consists of classes City and we call the method getAllCapitalCities to fill this ArrayList
-        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion);
+        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist countries
         a.printCapitalCities(capitalCities);
@@ -327,7 +336,7 @@ public class App
      * Gets all capital cities with their country and population.
      * @return List of capital cities with their populations, or null if there is an error.
      */
-    public ArrayList<City> getAllCapitalCities(String queryPart)
+    public ArrayList<City> getAllCapitalCities(String queryPart, String queryPart2)
     {
         try
         {
@@ -338,7 +347,8 @@ public class App
                     "SELECT city.name, country.name, city.population "
                             + "FROM city, country "
                             + queryPart
-                            + "ORDER BY city.population DESC";
+                            + "ORDER BY city.population DESC "
+                            + queryPart2;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract capital city information
