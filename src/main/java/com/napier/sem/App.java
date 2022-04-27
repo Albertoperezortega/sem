@@ -82,9 +82,11 @@ public class App
         String capitalCitiesWorld = "WHERE city.id = country.capital ";
         // This String is used for the 18th query - it chooses all capital cities in a continent
         String capitalCitiesContinent = "WHERE city.id = country.capital AND country.continent = 'Europe' ";
+        // This String is used for the 19th query - it chooses all capital cities in a region
+        String capitalCitiesRegion = "WHERE city.id = country.capital AND country.region = 'Eastern Europe' ";
 
         // We create an ArrayList that consists of classes City and we call the method getAllCapitalCities to fill this ArrayList
-        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesContinent);
+        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist countries
         a.printCapitalCities(capitalCities);
