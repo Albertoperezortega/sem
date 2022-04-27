@@ -50,6 +50,7 @@ public class AppIntegrationTests
         cities = app.getAllCities(citiesWorld, returnAll);
         assertEquals(cities.size(), 4079);
     }
+
 }
 
 
