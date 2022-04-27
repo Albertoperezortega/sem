@@ -80,9 +80,11 @@ public class App
 
         // This String is used for the 17th query - it chooses all capital cities in the world
         String capitalCitiesWorld = "WHERE city.id = country.capital ";
+        // This String is used for the 18th query - it chooses all capital cities in a continent
+        String capitalCitiesContinent = "WHERE city.id = country.capital AND country.continent = 'Europe' ";
 
         // We create an ArrayList that consists of classes City and we call the method getAllCapitalCities to fill this ArrayList
-        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesWorld);
+        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesContinent);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist countries
         a.printCapitalCities(capitalCities);
@@ -371,14 +373,14 @@ public class App
             return;
         }
         // Print header
-        System.out.println(String.format("%-30s %-35s %-20s", "Name", "Country", "Population"));
+        System.out.println(String.format("%-35s %-35s %-20s", "Name", "Country", "Population"));
         // Loop over all capital cities in the list
         for (City cpt : capitalCities)
         {
             if (cpt == null)
                 continue;
             String cpt_string =
-                    String.format("%-30s %-35s %-20s",
+                    String.format("%-35s %-35s %-20s",
                             cpt.name, cpt.country_name, cpt.population);
             System.out.println(cpt_string);
         }
