@@ -47,7 +47,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
+                        <id>default-jar</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
