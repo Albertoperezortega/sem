@@ -104,9 +104,11 @@ public class App
         String populationContinent = "continent";
         // This String is used for the 24th query - it groups the population by regions
         String populationRegion = "region";
+        // This String is used for the 25th query - it groups the population by countries
+        String populationCountry = "name";
 
         // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
-        ArrayList<Population> thePopulation = a.getPopulation(populationRegion);
+        ArrayList<Population> thePopulation = a.getPopulation(populationCountry);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
         a.printPopulation(thePopulation);
