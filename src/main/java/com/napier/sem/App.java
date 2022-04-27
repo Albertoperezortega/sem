@@ -74,7 +74,7 @@ public class App
         // We create an ArrayList that consists of classes City and we call the method getAllCities to fill this ArrayList
         ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
 
-        // We call the method printCities which creates and prints the output for the Arraylist countries
+        // We call the method printCities which creates and prints the output for the Arraylist cities
         // a.printCities(cities);
 
         // This String is used to return N number of rows of the query
@@ -97,11 +97,18 @@ public class App
         // We create an ArrayList that consists of classes City and we call the method getAllCapitalCities to fill this ArrayList
         ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
 
-        // We call the method printCapitalCountries which creates and prints the output for the Arraylist countries
+        // We call the method printCapitalCountries which creates and prints the output for the Arraylist capitalCities
         a.printCapitalCities(capitalCities);
 
-        ArrayList<Population> thePopulation = a.getPopulation();
+        // This String is used for the 23rd query - it groups the population by continents
+        String populationContinent = "continent";
+        // This String is used for the 24th query - it groups the population by regions
+        String populationRegion = "region";
 
+        // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
+        ArrayList<Population> thePopulation = a.getPopulation(populationRegion);
+
+        // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
         a.printPopulation(thePopulation);
 
         // Disconnect from database
@@ -402,7 +409,7 @@ public class App
         }
     }
 
-    public ArrayList<Population> getPopulation()
+    public ArrayList<Population> getPopulation(String queryPart)
     {
         try
         {
@@ -410,19 +417,19 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.continent, SUM(country.population) AS population, CONCAT(joined.ctypop, ' ', FORMAT(joined.ctypop/SUM(country.population)*100, 1), '%') AS cities_population, CONCAT(SUM(country.population)-joined.ctypop, ' ', FORMAT((SUM(country.population)-joined.ctypop)/SUM(country.population)*100, 1), '%') AS not_cities_population "
+                    "SELECT country." + queryPart + " AS the_selection, SUM(country.population) AS population, CONCAT(joined.ctypop, ' ', FORMAT(joined.ctypop/SUM(country.population)*100, 1), '%') AS cities_population, CONCAT(SUM(country.population)-joined.ctypop, ' ', FORMAT((SUM(country.population)-joined.ctypop)/SUM(country.population)*100, 1), '%') AS not_cities_population "
                         + "FROM country "
-                        + "JOIN (SELECT country.continent AS continent, SUM(city.population) AS ctypop FROM country, city WHERE country.code = city.countrycode GROUP BY country.continent) joined ON joined.continent  = country.continent "
-                        + "GROUP BY country.continent";
+                        + "JOIN (SELECT country." + queryPart + " AS selection, SUM(city.population) AS ctypop FROM country, city WHERE country.code = city.countrycode GROUP BY country." + queryPart + ") joined ON joined.selection  = country." + queryPart + " "
+                        + "GROUP BY country." + queryPart;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract capital city information
+            // Extract population information
             ArrayList<Population> thePopulation = new ArrayList<Population>();
             while (rset.next())
             {
-                // We create a new instance of class City each time this while loop runs, and we fill it with the output from the query
+                // We create a new instance of class Population each time this while loop runs, and we fill it with the output from the query
                 Population pop = new Population();
-                pop.selection = rset.getString("country.continent");
+                pop.selection = rset.getString("country.the_selection");
                 pop.population = rset.getString("population");
                 pop.cities_population = rset.getString("cities_population");
                 pop.not_cities_population = rset.getString("not_cities_population");
@@ -433,26 +440,26 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get capital city details");
+            System.out.println("Failed to get population details");
             return null;
         }
     }
 
     /**
-     * Prints list of capital cities
-     * @param thePopulation List of capital cities to print
+     * Prints grouped population
+     * @param thePopulation List of grouped population to print
      */
     public void printPopulation(ArrayList<Population> thePopulation)
     {
         // Check capitalCities is not null
         if (thePopulation == null)
         {
-            System.out.println("No capital cities");
+            System.out.println("No population");
             return;
         }
         // Print header
         System.out.println(String.format("%-35s %-35s %-20s %20s", "Selection", "Population", "In the cities", "Not in the cities"));
-        // Loop over all capital cities in the list
+        // Loop over population in the list
         for (Population pop : thePopulation)
         {
             if (pop == null)
