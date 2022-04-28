@@ -108,10 +108,10 @@ public class App
         String populationCountry = "name";
 
         // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
-        ArrayList<Population> thePopulation = a.getPopulation(populationCountry);
+        ArrayList<Population> thePopulation = a.getPopulation(populationContinent);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
-        // a.printPopulation(thePopulation);
+        a.printPopulation(thePopulation);
 
         // Below there are 6 queries which are used to get the population of the world, continent, region, country, district or city respectively
         String selectionWorld = "SELECT SUM(country.population) AS population "
@@ -133,7 +133,7 @@ public class App
                 + "WHERE name = 'Warszawa'";
 
         // We call the method getAndPrintThePopulation which executes an SQL query and prints the result
-        a.getAndPrintThePopulation(selectionCity);
+        // a.getAndPrintThePopulation(selectionCity);
 
         // Disconnect from database
         a.disconnect();

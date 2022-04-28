@@ -61,6 +61,15 @@ public class AppIntegrationTests
         capitalCities = app.getAllCapitalCities(capitalCitiesWorld, returnAll);
         assertEquals(capitalCities.size(), 232);
     }
+
+    //
+    @Test
+    void testGetPopulation() {
+        ArrayList<Population> thePopulation = new ArrayList<Population>();
+        String populationContinent = "continent";
+        thePopulation = app.getPopulation(populationContinent);
+        assertEquals(thePopulation.size(), 7);
+    }
 }
 
 
