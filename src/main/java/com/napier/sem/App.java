@@ -98,7 +98,7 @@ public class App
         ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist capitalCities
-        a.printCapitalCities(capitalCities);
+        // a.printCapitalCities(capitalCities);
 
         // This String is used for the 23rd query - it groups the population by continents
         String populationContinent = "continent";
@@ -111,7 +111,29 @@ public class App
         ArrayList<Population> thePopulation = a.getPopulation(populationCountry);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
-        a.printPopulation(thePopulation);
+        // a.printPopulation(thePopulation);
+
+        // Below there are 6 queries which are used to get the population of the world, continent, region, country, district or city respectively
+        String selectionWorld = "SELECT SUM(country.population) AS population "
+                + "FROM country";
+        String selectionContinent = "SELECT continent AS selection, SUM(country.population) AS population "
+                + "FROM country "
+                + "WHERE continent = 'Europe'";
+        String selectionRegion = "SELECT region AS selection, SUM(country.population) AS population "
+                + "FROM country "
+                + "WHERE region = 'Eastern Europe'";
+        String selectionCountry = "SELECT name AS selection, SUM(country.population) AS population"
+                + "FROM country "
+                + "WHERE name = 'Finland'";
+        String selectionDistrict = "SELECT district AS selection, SUM(city.population) AS population "
+                + "FROM city "
+                + "WHERE district = 'Mazowieckie'";
+        String selectionCity = "SELECT name AS selection, SUM(city.population) AS population "
+                + "FROM city "
+                + "WHERE name = 'Warszawa'";
+
+        // We call the method getAndPrintThePopulation which executes an SQL query and prints the result
+        a.getAndPrintThePopulation(selectionCity);
 
         // Disconnect from database
         a.disconnect();
@@ -472,6 +494,44 @@ public class App
             System.out.println(pop_string);
         }
     }
+
+    /**
+     * Executes a query and then prints the result
+     * @param query A query summing up the population of the world, continent, region, country, district or city
+     */
+    public void getAndPrintThePopulation(String query)
+    {
+        try
+        {
+            // Initialising the variables
+            String selection = "World";
+            String selectedPopulation = "Example";
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect = query;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            while (rset.next())
+            {
+                // If the selectionWorld is used as query then this line will be skipped aand the selection variable will stay as "World"
+                if (strSelect != "SELECT SUM(country.population) AS population " + "FROM country") {
+                    selection = rset.getString("selection");
+                }
+                selectedPopulation = rset.getString("population");
+            }
+            // Printing the output
+            System.out.println(String.format("%-30s %-30s", "Selection", "Population"));
+            System.out.println(String.format("%-30s %-30s", selection, selectedPopulation));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+        }
+    }
+
 
     /**
      * Disconnect from the MySQL database.
