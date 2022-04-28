@@ -68,7 +68,7 @@ public class AppIntegrationTests
         ArrayList<Population> thePopulation = new ArrayList<Population>();
         String populationContinent = "continent";
         thePopulation = app.getPopulation(populationContinent);
-        assertEquals(thePopulation.size(), 7);
+        assertEquals(thePopulation.size(), 6);
     }
 }
 
