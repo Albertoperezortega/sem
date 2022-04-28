@@ -108,7 +108,7 @@ public class App
         String populationCountry = "name";
 
         // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
-        ArrayList<Population> thePopulation = a.getPopulation(populationCountry);
+        ArrayList<Population> thePopulation = a.getPopulation(populationContinent);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
         a.printPopulation(thePopulation);

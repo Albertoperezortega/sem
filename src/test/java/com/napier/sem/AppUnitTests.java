@@ -130,4 +130,45 @@ public class AppUnitTests
         cities.add(cpt);
         app.printCapitalCities(cities);
     }
+
+
+
+    //Tests if printPopulation method handles a null value of capitalCities array
+    @Test
+    void printPopulationTestNull()
+    {
+        app.printPopulation(null);
+    }
+
+    //Tests if printPopulation handles an empty cities array
+    @Test
+    void printPopulationTestEmpty()
+    {
+        ArrayList<Population> thePopulation = new ArrayList<Population>();
+        app.printPopulation(thePopulation);
+    }
+
+    //Tests if printPopulation can handle printing a list that contains null values
+    @Test
+    void printPopulationTestContainsNull()
+    {
+        ArrayList<Population> thePopulation = new ArrayList<Population>();
+        thePopulation.add(null);
+        app.printPopulation(thePopulation);
+    }
+
+    //This final test is for normal conditions for method printPopulation.
+    @Test
+    void printPopulation()
+    {
+        ArrayList<Population> thePopulation = new ArrayList<Population>();
+        Population pop = new Population();
+        pop.selection = "Europe";
+        pop.population = "730074600";
+        pop.cities_population = "241942813 33.1%";
+        pop.not_cities_population = "488131787 66.9%";
+        thePopulation.add(pop);
+        app.printPopulation(thePopulation);
+    }
+
 }
