@@ -50,6 +50,26 @@ public class AppIntegrationTests
         cities = app.getAllCities(citiesWorld, returnAll);
         assertEquals(cities.size(), 4079);
     }
+
+
+    //Tests the getAllCapitalCities method to see if it returns the correct number of rows (capital cities)
+    @Test
+    void testGetAllCapitalCities() {
+        ArrayList<City> capitalCities = new ArrayList<City>();
+        String capitalCitiesWorld = "WHERE country.capital = city.id ";
+        String returnAll = "";
+        capitalCities = app.getAllCapitalCities(capitalCitiesWorld, returnAll);
+        assertEquals(capitalCities.size(), 232);
+    }
+
+    //
+    @Test
+    void testGetPopulation() {
+        ArrayList<Population> thePopulation = new ArrayList<Population>();
+        String populationContinent = "continent";
+        thePopulation = app.getPopulation(populationContinent);
+        assertEquals(thePopulation.size(), 6);
+    }
 }
 
 
