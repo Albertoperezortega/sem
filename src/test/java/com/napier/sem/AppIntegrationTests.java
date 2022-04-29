@@ -70,6 +70,13 @@ public class AppIntegrationTests
         thePopulation = app.getPopulation(populationContinent);
         assertEquals(thePopulation.size(), 6);
     }
+
+    @Test
+    void testGetLanguages() {
+        ArrayList<Language> languages = new ArrayList<Language>();
+        languages = app.getLanguages();
+        assertEquals(languages.size(), 5);
+    }
 }
 
 

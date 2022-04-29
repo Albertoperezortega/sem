@@ -130,4 +130,19 @@ public class AppUnitTests
         cities.add(cpt);
         app.printCapitalCities(cities);
     }
+
+    @Test
+    /**
+     *
+     */
+    void printLanguages()
+    {
+        ArrayList<Language> languages = new ArrayList<Language>();
+        Language lng = new Language();
+        lng.name = "Arabic";
+        lng.population = 233839239;
+        lng.percentage = "3.8 %";
+        languages.add(lng);
+        app.printLanguages(languages);
+    }
 }

@@ -111,7 +111,7 @@ public class App
         ArrayList<Population> thePopulation = a.getPopulation(populationContinent);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
-        a.printPopulation(thePopulation);
+        // a.printPopulation(thePopulation);
 
         // Below there are 6 queries which are used to get the population of the world, continent, region, country, district or city respectively
         String selectionWorld = "SELECT SUM(country.population) AS population "
@@ -134,6 +134,12 @@ public class App
 
         // We call the method getAndPrintThePopulation which executes an SQL query and prints the result
         // a.getAndPrintThePopulation(selectionCity);
+
+        // We create an ArrayList that consists of classes Language and we call the method languages to fill this ArrayList
+        ArrayList<Language> languages = a.getLanguages();
+
+        // We call the method printLanguages which creates and prints the output for the Arraylist languages
+        a.printLanguages(languages);
 
         // Disconnect from database
         a.disconnect();
@@ -475,7 +481,7 @@ public class App
      */
     public void printPopulation(ArrayList<Population> thePopulation)
     {
-        // Check capitalCities is not null
+        // Check thePopulation is not null
         if (thePopulation == null)
         {
             System.out.println("No population");
@@ -529,6 +535,73 @@ public class App
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get population details");
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Language> getLanguages()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT countrylanguage.language, CEILING(SUM(country.population * 0.01 * countrylanguage.percentage)) AS population, CONCAT(ROUND(SUM(country.population * 0.01 * countrylanguage.percentage/division*100), 1), ' %') AS percentage "
+                        + "FROM country, countrylanguage, (SELECT SUM(country.population) as division FROM country) AS base "
+                        + "WHERE country.code = countrylanguage.countrycode "
+                        + "GROUP BY countrylanguage.language "
+                        + "ORDER BY population DESC "
+                        + "LIMIT 5";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract population information
+            ArrayList<Language> languages = new ArrayList<Language>();
+            while (rset.next())
+            {
+                // We create a new instance of class Population each time this while loop runs, and we fill it with the output from the query
+                Language lng = new Language();
+                lng.name = rset.getString("countrylanguage.language");
+                lng.population = rset.getInt("population");
+                lng.percentage = rset.getString("percentage");
+                languages.add(lng);
+            }
+            return languages;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get language details");
+            return null;
+        }
+    }
+
+    /**
+     * Prints grouped population
+     * @param languages List of languages to print
+     */
+    public void printLanguages(ArrayList<Language> languages)
+    {
+        // Check languages is not null
+        if (languages == null)
+        {
+            System.out.println("No language");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-35s %-35s %-20s", "Language", "Population", "Percentage"));
+        // Loop over population in the list
+        for (Language lng : languages)
+        {
+            if (lng == null)
+                continue;
+            String lng_string =
+                    String.format("%-35s %-35s %-20s",
+                            lng.name, lng.population, lng.percentage);
+            System.out.println(lng_string);
         }
     }
 
