@@ -72,10 +72,10 @@ public class App
          * The second variable in the brackets will be either numberOfCities or returnAll
          */
         // We create an ArrayList that consists of classes City and we call the method getAllCities to fill this ArrayList
-        ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
+        ArrayList<City> cities = a.getAllCities(citiesDistrict, numberOfCities);
 
         // We call the method printCities which creates and prints the output for the Arraylist cities
-        // a.printCities(cities);
+        //a.printCities(cities);
 
         // This String is used to return N number of rows of the query
         String numberOfCapitalCities = "LIMIT 3";
@@ -98,7 +98,7 @@ public class App
         ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist capitalCities
-        // a.printCapitalCities(capitalCities);
+        //a.printCapitalCities(capitalCities);
 
         // This String is used for the 23rd query - it groups the population by continents
         String populationContinent = "continent";
@@ -108,7 +108,7 @@ public class App
         String populationCountry = "name";
 
         // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
-        ArrayList<Population> thePopulation = a.getPopulation(populationContinent);
+        ArrayList<Population> thePopulation = a.getPopulation(populationCountry);
 
         // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
         a.printPopulation(thePopulation);
@@ -122,7 +122,7 @@ public class App
         String selectionRegion = "SELECT region AS selection, SUM(country.population) AS population "
                 + "FROM country "
                 + "WHERE region = 'Eastern Europe'";
-        String selectionCountry = "SELECT name AS selection, SUM(country.population) AS population"
+        String selectionCountry = "SELECT name AS selection, SUM(country.population) AS population "
                 + "FROM country "
                 + "WHERE name = 'Finland'";
         String selectionDistrict = "SELECT district AS selection, SUM(city.population) AS population "
@@ -133,7 +133,7 @@ public class App
                 + "WHERE name = 'Warszawa'";
 
         // We call the method getAndPrintThePopulation which executes an SQL query and prints the result
-        // a.getAndPrintThePopulation(selectionCity);
+        //a.getAndPrintThePopulation(selectionCountry);
 
         // Disconnect from database
         a.disconnect();
