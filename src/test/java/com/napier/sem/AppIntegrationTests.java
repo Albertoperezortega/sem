@@ -20,18 +20,6 @@ public class AppIntegrationTests
     }
 
     /**
-     * Tests the getCountry method to see if it returns the correct answer
-     */
-    @Test
-    void testGetCountry()
-    {
-        Country ctr = app.getCountry("POL");
-        assertEquals(ctr.code, "POL");
-        assertEquals(ctr.name, "Poland");
-        assertEquals(ctr.continent, "Europe");
-    }
-
-    /**
      * Tests the getAllCountries method to see if it returns the correct number of rows (countries)
      */
     @Test
