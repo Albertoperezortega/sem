@@ -25,6 +25,8 @@ public class App
             a.connect(args[0], Integer.parseInt(args[1]));
         }
 
+        //Variables for the first 6 queries
+
         // This String is used to return all rows of the query
         String returnAll = "";
         // This String is used to return N number of rows of the query
@@ -36,19 +38,7 @@ public class App
         // This String is used for the 3rd and 6th query - it chooses all countries in a region
         String countriesRegion = "WHERE country.capital = city.id AND country.region = 'Eastern Europe' ";
 
-        /**
-         * We use the method getAllCountries to generate a country report, so basically run the first 6 queries from the assessment description
-         * This method has two inputs:
-         * - the first one is queryPart, which is the WHERE clause that chooses all the countries in the world/continent/region
-         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
-         * So the first variable in the brackets will be countriesWorld, countriesContinent or countriesRegion
-         * The second variable in the brackets will be either numberOfCountries or returnAll
-         */
-        // We create an ArrayList that consists of classes Country and we call the method getAllCountries to fill this ArrayList
-        ArrayList<Country> countries = a.getAllCountries(countriesRegion, numberOfCountries);
-
-        // We call the method printCountries which creates and prints the output for the Arraylist countries
-        // a.printCountries(countries);
+        // Variables for queries 11 to 16
 
         // This String is used to return N number of rows of the query
         String numberOfCities = "LIMIT 3";
@@ -63,19 +53,7 @@ public class App
         // This String is used for the 11th and 16th query - it chooses all cities in a district
         String citiesDistrict = "WHERE country.code = city.countrycode AND city.district = 'Mazowieckie' ";
 
-        /**
-         * We use the method getAllCities to generate a city report, so basically run the queries from 7 to 16 in the assessment description
-         * This method has two inputs:
-         * - the first one is queryPart, which is the WHERE clause that chooses all the cities in the world/continent/region/country/district
-         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
-         * So the first variable in the brackets will be citiesWorld, citiesContinent, citiesRegion, citiesCountries or citiesDistrict
-         * The second variable in the brackets will be either numberOfCities or returnAll
-         */
-        // We create an ArrayList that consists of classes City and we call the method getAllCities to fill this ArrayList
-        ArrayList<City> cities = a.getAllCities(citiesContinent, numberOfCities);
-
-        // We call the method printCities which creates and prints the output for the Arraylist cities
-        // a.printCities(cities);
+        // Variables for queries 17 to 22
 
         // This String is used to return N number of rows of the query
         String numberOfCapitalCities = "LIMIT 3";
@@ -86,19 +64,7 @@ public class App
         // This String is used for the 19th and 22nd query - it chooses all capital cities in a region
         String capitalCitiesRegion = "WHERE city.id = country.capital AND country.region = 'Eastern Europe' ";
 
-        /**
-         * We use the method getAllCapitalCities to generate a capital city report, so basically run the queries from 17 to 22 in the assessment description
-         * This method has two inputs:
-         * - the first one is queryPart, which is the WHERE clause that chooses all the capital cities in the world/continent/region
-         * - the second one is queryPart2, which is just the LIMIT clause that chooses the number of top rows for the query
-         * So the first variable in the brackets will be capitalCitiesWorld, capitalCitiesContinent or capitalCitiesRegion
-         * The second variable in the brackets will be either numberOfCapitalCities or returnAll
-         */
-        // We create an ArrayList that consists of classes City and we call the method getAllCapitalCities to fill this ArrayList
-        ArrayList<City> capitalCities = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
-
-        // We call the method printCapitalCountries which creates and prints the output for the Arraylist capitalCities
-        // a.printCapitalCities(capitalCities);
+        // Variables for queries 23 to 25
 
         // This String is used for the 23rd query - it groups the population by continents
         String populationContinent = "continent";
@@ -107,11 +73,7 @@ public class App
         // This String is used for the 25th query - it groups the population by countries
         String populationCountry = "name";
 
-        // We create an ArrayList that consists of classes Population and we call the method getPopulation to fill this ArrayList
-        ArrayList<Population> thePopulation = a.getPopulation(populationContinent);
-
-        // We call the method printCapitalCountries which creates and prints the output for the Arraylist thePopulation
-        a.printPopulation(thePopulation);
+        // Variables for queries 26 to 31
 
         // Below there are 6 queries which are used to get the population of the world, continent, region, country, district or city respectively
         String selectionWorld = "SELECT SUM(country.population) AS population "
@@ -132,8 +94,168 @@ public class App
                 + "FROM city "
                 + "WHERE name = 'Warszawa'";
 
-        // We call the method getAndPrintThePopulation which executes an SQL query and prints the result
-        // a.getAndPrintThePopulation(selectionCity);
+
+        // Just change this variable to the number of the query that you want to see
+        int queryNumber = 17;
+
+        switch(queryNumber) {
+            case 1:
+                // All the countries in the world organised by largest population to smallest.
+                ArrayList<Country> one = a.getAllCountries(countriesWorld, returnAll);
+                a.printCountries(one);
+                break;
+            case 2:
+                // All the countries in a continent organised by largest population to smallest.
+                ArrayList<Country> two = a.getAllCountries(countriesContinent, returnAll);
+                a.printCountries(two);
+                break;
+            case 3:
+                // All the countries in a region organised by largest population to smallest.
+                ArrayList<Country> three = a.getAllCountries(countriesRegion, returnAll);
+                a.printCountries(three);
+                break;
+            case 4:
+                // The top N populated countries in the world where N is provided by the user.
+                ArrayList<Country> four = a.getAllCountries(countriesWorld, numberOfCountries);
+                a.printCountries(four);
+                break;
+            case 5:
+                // The top N populated countries in a continent where N is provided by the user.
+                ArrayList<Country> five = a.getAllCountries(countriesContinent, numberOfCountries);
+                a.printCountries(five);
+                break;
+            case 6:
+                // The top N populated countries in a region where N is provided by the user.
+                ArrayList<Country> six = a.getAllCountries(countriesRegion, numberOfCountries);
+                a.printCountries(six);
+                break;
+            case 7:
+                // All the cities in the world organised by largest population to smallest.
+                ArrayList<City> seven = a.getAllCities(citiesWorld, returnAll);
+                a.printCities(seven);
+                break;
+            case 8:
+                // All the cities in a continent organised by largest population to smallest.
+                ArrayList<City> eight = a.getAllCities(citiesContinent, returnAll);
+                a.printCities(eight);
+                break;
+            case 9:
+                // All the cities in a region organised by largest population to smallest.
+                ArrayList<City> nine = a.getAllCities(citiesRegion, returnAll);
+                a.printCities(nine);
+                break;
+            case 10:
+                // All the cities in a country organised by largest population to smallest.
+                ArrayList<City> ten = a.getAllCities(citiesCountry, returnAll);
+                a.printCities(ten);
+                break;
+            case 11:
+                // All the cities in a district organised by largest population to smallest.
+                ArrayList<City> eleven = a.getAllCities(citiesDistrict, returnAll);
+                a.printCities(eleven);
+                break;
+            case 12:
+                // The top N populated cities in the world where N is provided by the user.
+                ArrayList<City> twelve = a.getAllCities(citiesWorld, numberOfCities);
+                a.printCities(twelve);
+                break;
+            case 13:
+                // The top N populated cities in a continent where N is provided by the user.
+                ArrayList<City> thirteen  = a.getAllCities(citiesContinent, numberOfCities);
+                a.printCities(thirteen);
+                break;
+            case 14:
+                // The top N populated cities in a region where N is provided by the user.
+                ArrayList<City> fourteen = a.getAllCities(citiesRegion, numberOfCities);
+                a.printCities(fourteen);
+                break;
+            case 15:
+                // The top N populated cities in a country where N is provided by the user.
+                ArrayList<City> fifteen = a.getAllCities(citiesCountry, numberOfCities);
+                a.printCities(fifteen);
+                break;
+            case 16:
+                // The top N populated cities in a district where N is provided by the user.
+                ArrayList<City> sixteen = a.getAllCities(citiesDistrict, numberOfCities);
+                a.printCities(sixteen);
+                break;
+            case 17:
+                // All the capital cities in the world organised by largest population to smallest.
+                ArrayList<City> seventeen = a.getAllCapitalCities(capitalCitiesWorld, returnAll);
+                a.printCities(seventeen);
+                break;
+            case 18:
+                // All the capital cities in a continent organised by largest population to smallest.
+                ArrayList<City> eighteen = a.getAllCapitalCities(capitalCitiesContinent, returnAll);
+                a.printCities(eighteen);
+                break;
+            case 19:
+                // All the capital cities in a region organised by largest to smallest.
+                ArrayList<City> nineteen = a.getAllCapitalCities(capitalCitiesRegion, returnAll);
+                a.printCities(nineteen);
+                break;
+            case 20:
+                // The top N populated capital cities in the world where N is provided by the user.
+                ArrayList<City> twenty = a.getAllCapitalCities(capitalCitiesWorld, numberOfCapitalCities);
+                a.printCities(twenty);
+                break;
+            case 21:
+                // The top N populated capital cities in a continent where N is provided by the user.
+                ArrayList<City> twentyOne = a.getAllCapitalCities(capitalCitiesContinent, numberOfCapitalCities);
+                a.printCities(twentyOne);
+                break;
+            case 22:
+                // The top N populated capital cities in a region where N is provided by the user.
+                ArrayList<City> twentyTwo = a.getAllCapitalCities(capitalCitiesRegion, numberOfCapitalCities);
+                a.printCities(twentyTwo);
+                break;
+            case 23:
+                // The population of people, people living in cities, and people not living in cities in each continent.
+                ArrayList<Population> twentyThree = a.getPopulation(populationContinent);
+                a.printPopulation(twentyThree);
+                break;
+            case 24:
+                // The population of people, people living in cities, and people not living in cities in each region.
+                ArrayList<Population> twentyFour = a.getPopulation(populationRegion);
+                a.printPopulation(twentyFour);
+                break;
+            case 25:
+                // The population of people, people living in cities, and people not living in cities in each country.
+                ArrayList<Population> twentyFive = a.getPopulation(populationCountry);
+                a.printPopulation(twentyFive);
+                break;
+            case 26:
+                // The population of the world.
+                a.getAndPrintThePopulation(selectionWorld);
+                break;
+            case 27:
+                // The population of a continent.
+                a.getAndPrintThePopulation(selectionContinent);
+                break;
+            case 28:
+                // The population of a region.
+                a.getAndPrintThePopulation(selectionRegion);
+                break;
+            case 29:
+                // The population of a country.
+                a.getAndPrintThePopulation(selectionCountry);
+                break;
+            case 30:
+                // The population of a district.
+                a.getAndPrintThePopulation(selectionDistrict);
+                break;
+            case 31:
+                // The population of a city.
+                a.getAndPrintThePopulation(selectionCity);
+                break;
+            case 32:
+                // Language report.
+                ArrayList<Language> thirtyTwo = a.getLanguages();
+                a.printLanguages(thirtyTwo);
+                break;
+            default:
+                System.out.println("Wrong query number");
+        }
 
         // Disconnect from database
         a.disconnect();
@@ -178,59 +300,9 @@ public class App
     }
 
     /**
-     * Contructs the SQL statements
-     * @param code
-     * @return if SQL statement valid, and null if invalid or error
-     */
-    public Country getCountry(String code)
-    {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for SQL statement
-            String strSelect =
-                    "SELECT code, name, continent "
-                            + "FROM country "
-                            + "WHERE code = '" + code +"'";
-            // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country if valid.
-            // Check one is returned
-            if (rset.next())
-            {
-                Country ctr = new Country();
-                ctr.code = rset.getString("code");
-                ctr.name = rset.getString("name");
-                ctr.continent = rset.getString("continent");
-                return ctr;
-            }
-            else
-                return null;
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
-            return null;
-        }
-    }
-
-
-    public void displayCountry(Country ctr)
-    {
-        if (ctr != null)
-        {
-            System.out.println(
-                    ctr.code + " "
-                            + ctr.name + " "
-                            + ctr.continent+ "\n");
-        }
-    }
-
-    /**
-     * Method for getting the country report
      * Gets all the countries and their population.
+     * @param queryPart the first part of the query which is the WHERE clause that chooses all the countries in the world/continent/region
+     * @param queryPart2 the second part of the query which is just the LIMIT clause that chooses the number of top rows for the query
      * @return A list of all countries and their population, or null if there is an error.
      */
     public ArrayList<Country> getAllCountries(String queryPart, String queryPart2)
@@ -299,8 +371,9 @@ public class App
     }
 
     /**
-     * Method for getting the city report
      * Gets all cities with their population.
+     * @param queryPart the first part of the query which is the WHERE clause that chooses all the cities in the world/continent/region/country/district
+     * @param queryPart2 the second part of the query which is just the LIMIT clause that chooses the number of top rows for the query
      * @return List of cities with their populations, or null if there is an error.
      */
     public ArrayList<City> getAllCities(String queryPart, String queryPart2)
@@ -367,8 +440,9 @@ public class App
     }
 
     /**
-     * Method for getting the capital city report
      * Gets all capital cities with their country and population.
+     * @param queryPart the first part of the query which is the WHERE clause that chooses all the capital cities in the world/continent/region
+     * @param queryPart2 the second part of the query which is just the LIMIT clause that chooses the number of top rows for the query
      * @return List of capital cities with their populations, or null if there is an error.
      */
     public ArrayList<City> getAllCapitalCities(String queryPart, String queryPart2)
@@ -433,6 +507,11 @@ public class App
         }
     }
 
+    /**
+     * Executes a query and return an ArrayList with Population classes
+     * @param queryPart the first part of the query which is one of the Strings: continent, region, name
+     * @return an ArrayList that consists of classes Population
+     */
     public ArrayList<Population> getPopulation(String queryPart)
     {
         try
@@ -475,7 +554,7 @@ public class App
      */
     public void printPopulation(ArrayList<Population> thePopulation)
     {
-        // Check capitalCities is not null
+        // Check thePopulation is not null
         if (thePopulation == null)
         {
             System.out.println("No population");
@@ -496,7 +575,7 @@ public class App
     }
 
     /**
-     * Executes a query and then prints the result
+     * Executes a MySQL query and then prints the result which is the population
      * @param query A query summing up the population of the world, continent, region, country, district or city
      */
     public void getAndPrintThePopulation(String query)
@@ -529,6 +608,73 @@ public class App
         {
             System.out.println(e.getMessage());
             System.out.println("Failed to get population details");
+        }
+    }
+
+    /**
+     * Executes a MySQL query and prints the list of the five languages with the biggest percentage of the total world population
+     * @return an ArrayList of consisting of Language classes
+     */
+    public ArrayList<Language> getLanguages()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT countrylanguage.language, CEILING(SUM(country.population * 0.01 * countrylanguage.percentage)) AS population, CONCAT(ROUND(SUM(country.population * 0.01 * countrylanguage.percentage/division*100), 1), ' %') AS percentage "
+                        + "FROM country, countrylanguage, (SELECT SUM(country.population) as division FROM country) AS base "
+                        + "WHERE country.code = countrylanguage.countrycode "
+                        + "GROUP BY countrylanguage.language "
+                        + "ORDER BY population DESC "
+                        + "LIMIT 5";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract population information
+            ArrayList<Language> languages = new ArrayList<Language>();
+            while (rset.next())
+            {
+                // We create a new instance of class Population each time this while loop runs, and we fill it with the output from the query
+                Language lng = new Language();
+                lng.name = rset.getString("countrylanguage.language");
+                lng.population = rset.getInt("population");
+                lng.percentage = rset.getString("percentage");
+                languages.add(lng);
+            }
+            return languages;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get language details");
+            return null;
+        }
+    }
+
+    /**
+     * Creates and prints the output for the Arraylist languages
+     * @param languages List of languages to print
+     */
+    public void printLanguages(ArrayList<Language> languages)
+    {
+        // Check languages is not null
+        if (languages == null)
+        {
+            System.out.println("No language");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-35s %-35s %-20s", "Language", "Population", "Percentage"));
+        // Loop over population in the list
+        for (Language lng : languages)
+        {
+            if (lng == null)
+                continue;
+            String lng_string =
+                    String.format("%-35s %-35s %-20s",
+                            lng.name, lng.population, lng.percentage);
+            System.out.println(lng_string);
         }
     }
 
