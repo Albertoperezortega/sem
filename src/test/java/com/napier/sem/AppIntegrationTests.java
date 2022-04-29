@@ -19,7 +19,21 @@ public class AppIntegrationTests
 
     }
 
-    //Tests the getAllCountries method to see if it returns the correct number of rows (countries)
+    /**
+     * Tests the getCountry method to see if it returns the correct answer
+     */
+    @Test
+    void testGetCountry()
+    {
+        Country ctr = app.getCountry("POL");
+        assertEquals(ctr.code, "POL");
+        assertEquals(ctr.name, "Poland");
+        assertEquals(ctr.continent, "Europe");
+    }
+
+    /**
+     * Tests the getAllCountries method to see if it returns the correct number of rows (countries)
+     */
     @Test
     void testGetAllCountries()
     {
@@ -30,7 +44,9 @@ public class AppIntegrationTests
         assertEquals(countries.size(), 232);
     }
 
-    //Tests the getAllCities method to see if it returns the correct number of rows (cities)
+    /**
+     * Tests the getAllCities method to see if it returns the correct number of rows (cities)
+     */
     @Test
     void testGetAllCities()
     {
@@ -41,8 +57,9 @@ public class AppIntegrationTests
         assertEquals(cities.size(), 4079);
     }
 
-
-    //Tests the getAllCapitalCities method to see if it returns the correct number of rows (capital cities)
+    /**
+     * Tests the getAllCapitalCities method to see if it returns the correct number of rows (capital cities)
+     */
     @Test
     void testGetAllCapitalCities() {
         ArrayList<City> capitalCities = new ArrayList<City>();
@@ -52,20 +69,15 @@ public class AppIntegrationTests
         assertEquals(capitalCities.size(), 232);
     }
 
-    //
+    /**
+     * Tests the getPopulation method to see if it returns the correct number of rows
+     */
     @Test
     void testGetPopulation() {
         ArrayList<Population> thePopulation = new ArrayList<Population>();
         String populationContinent = "continent";
         thePopulation = app.getPopulation(populationContinent);
         assertEquals(thePopulation.size(), 6);
-    }
-
-    @Test
-    void testGetLanguages() {
-        ArrayList<Language> languages = new ArrayList<Language>();
-        languages = app.getLanguages();
-        assertEquals(languages.size(), 5);
     }
 }
 

@@ -8,21 +8,27 @@ public class AppUnitTests
 {
     static App app;
 
-    //Initializes a new app instance
+    /**
+     * Initializes a new app instance
+     */
     @BeforeAll
     static void init()
     {
         app = new App();
     }
 
-    //Tests if printCountries method handles a null value of countries array
+    /**
+     * Tests if printCountries method handles a null value of countries array
+     */
     @Test
     void printCountriesTestNull()
     {
         app.printCountries(null);
     }
 
-    //Tests if printCountries handles an empty countries array
+    /**
+     * Tests if printCountries handles an empty countries array
+     */
     @Test
     void printCountriesTestEmpty()
     {
@@ -30,7 +36,9 @@ public class AppUnitTests
         app.printCountries(countries);
     }
 
-    //Tests if printCountries can handle printing a list that contains null values
+    /**
+     * Tests if printCountries can handle printing a list that contains null values
+     */
     @Test
     void printCountriesTestContainsNull()
     {
@@ -39,7 +47,9 @@ public class AppUnitTests
         app.printCountries(countries);
     }
 
-    //This final test is for normal conditions in method printCountries.
+    /**
+     * This final test is for normal conditions in method printCountries.
+     */
     @Test
     void printCountries()
     {
@@ -55,14 +65,18 @@ public class AppUnitTests
         app.printCountries(countries);
     }
 
-    //Tests if printCities method handles a null value of cities array
+    /**
+     * Tests if printCities method handles a null value of cities array
+     */
     @Test
     void printCitiesTestNull()
     {
         app.printCities(null);
     }
 
-    //Tests if printCities handles an empty cities array
+    /**
+     * Tests if printCities handles an empty cities array
+     */
     @Test
     void printCitiesTestEmpty()
     {
@@ -70,7 +84,9 @@ public class AppUnitTests
         app.printCities(cities);
     }
 
-    //Tests if printCities can handle printing a list that contains null values
+    /**
+     * Tests if printCities can handle printing a list that contains null values
+     */
     @Test
     void printCitiesTestContainsNull()
     {
@@ -79,7 +95,9 @@ public class AppUnitTests
         app.printCities(cities);
     }
 
-    //This final test is for normal conditions for method printCities.
+    /**
+     * This final test is for normal conditions for method printCities.
+     */
     @Test
     void printCities()
     {
@@ -93,14 +111,18 @@ public class AppUnitTests
         app.printCities(cities);
     }
 
-    //Tests if printCapitalCities method handles a null value of capitalCities array
+    /**
+     * Tests if printCapitalCities method handles a null value of capitalCities array
+     */
     @Test
     void printCapitalCitiesTestNull()
     {
         app.printCapitalCities(null);
     }
 
-    //Tests if printCapitalCities handles an empty cities array
+    /**
+     * Tests if printCapitalCities handles an empty cities array
+     */
     @Test
     void printCapitalCitiesTestEmpty()
     {
@@ -108,7 +130,9 @@ public class AppUnitTests
         app.printCapitalCities(cities);
     }
 
-    //Tests if printCapitalCities can handle printing a list that contains null values
+    /**
+     * Tests if printCapitalCities can handle printing a list that contains null values
+     */
     @Test
     void printCapitalCitiesTestContainsNull()
     {
@@ -117,7 +141,9 @@ public class AppUnitTests
         app.printCapitalCities(cities);
     }
 
-    //This final test is for normal conditions for method printCapitalCities.
+    /**
+     * This final test is for normal conditions for method printCapitalCities.
+     */
     @Test
     void printCapitalCities()
     {
