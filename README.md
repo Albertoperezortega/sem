@@ -42,6 +42,4 @@
 | 29  | The population of a country.                                                                          | Yes  | <img width="1368" alt="requirement29" src="https://user-images.githubusercontent.com/98537885/165839204-0c3d4a23-7112-4bc7-bea3-dec9d7287290.png">      |
 | 30  | The population of a district.                                                                         | Yes  | <img width="1018" alt="requirement30" src="https://user-images.githubusercontent.com/98537885/165839665-426ee257-8922-4119-af8f-e571ef6f8240.png">       |
 | 31  | The population of a city.                                                                             | Yes  | <img width="1018" alt="requirement31" src="https://user-images.githubusercontent.com/98537885/165839682-7c66ca40-24d0-4b5f-a083-a0577fe207c4.png">      |
-| 32  | number of people who speak the following the following languages from greatest number to smallest     | Yes  | Text       |
-
-
+| 32  | number of people who speak the following the following languages from greatest number to smallest     | Yes  | <img width="987" alt="requirement32" src="https://user-images.githubusercontent.com/98537885/165938965-5aea520a-25df-4198-a50d-4a1b8e7ee39b.png">       |
